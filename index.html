@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Gallery</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/css/lightgallery.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.11/js/lightgallery-all.min.js"></script>
+<!-- 	<script src="scripts/lg-thumbnail.min.js"></script> -->
+	<script>if (window.module) module = window.module;</script>	
+</head>
+<body>
+	<div class="sidenav">
+	  <a href="index.html">Add</a>
+	  <a href="projectsCollection.html">Projects</a>
+	  <a href="view.html">View</a>
+	  <a href="#contact">Contact</a>
+	</div>
+	<div class="main">
+		<h1 align="center">Create Project</h1>
+		<div class="form-group">	
+			<input type="file"  id="files" name="files" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple accept="image/*" />
+		</div>
+		<div>			
+<!-- 		<button type="button" class="btn btn-success" onclick="createProject()" float="right">Create</button> -->
+		<button type="button" class="btn btn-success" onclick="view()" float="right">view</button>
+		</div>
+		<output id="list">			
+		</output>
+		<div  id="gallery" hidden>
+			
+		</div>
+	</div>
+	<script id="folderTemplate" type="text/x-handlebars-template">
+		<a href=# onclick="openFolder('{{path1}}')" data-path='{{path1}}'>
+		<img class="thumb" src="{{imgURL}}" data-path="{{path1}}" title="{{showPath}}"/></a>
+	</script>
+	<script id="fileTemplate" type="text/x-handlebars-template">
+		<!-- <img class="thumb" src="{{imgURL}}" data-path="{{path1}}" title="{{showPath}}" onclick="selected('{{formattedPath}}')"/></a> -->
+		
+		<img class="thumb" src="{{imgURL}}" data-path="{{formattedPath}}" title="{{showPath}}" onclick="selected(this)" id="{{showPath}}"/></a>
+	</script>
+</body>
+<script type="text/javascript">
+	var fileHTML = null;
+	$(function() {
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+			//folder template
+		  	folderHTML = $("#folderTemplate").html();
+		  	folderHTML = handlebars.compile(folderHTML);
+			//file template
+		   	fileHTML = $("#fileTemplate").html();
+		  	fileHTML = handlebars.compile(fileHTML);
+		  	return;
+		} else {
+		  alert('The File APIs are not fully supported in this browser.');
+		}
+	});
+</script>
+<script type="text/javascript" src="js/index.js"></script>
+</html>
